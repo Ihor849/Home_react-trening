@@ -22,3 +22,7 @@
 .label__name {
   margin-right: 15px;
 }
+.radio__btn {
+  display: flex;
+  justify-content: space-around;
+}

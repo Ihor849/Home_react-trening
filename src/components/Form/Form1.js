@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import css from './Form.css';
-// import shortid from 'shortid';
+import './Form.css';
 
-class Form extends Component {
+class Form1 extends Component {
   state = {
     name: '',
     tag: '',
@@ -76,4 +75,4 @@ class Form extends Component {
   }
 }
 
-export default Form;
+export default Form1;

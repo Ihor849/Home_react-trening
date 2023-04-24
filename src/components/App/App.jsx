@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Container from 'components/Container/Container'
 import Form1 from 'components/Form/Form1'
+import Form2 from 'components/Form/Form2'
 
 
 class App extends Component {
@@ -12,7 +13,8 @@ class App extends Component {
     <>
       <h1 className='title'>Состояние компонента ФОРМ</h1>
       <Container/>
-      <Form1 onSubmit={this.formSubmitHandler} />
+        <Form1 onSubmit={this.formSubmitHandler} />
+        <Form2/>
       
     </>)
   }

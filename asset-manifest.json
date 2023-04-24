@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Home_react-trening/static/css/main.7acaea2f.css",
+    "main.js": "/Home_react-trening/static/js/main.07d3183d.js",
+    "index.html": "/Home_react-trening/index.html",
+    "main.7acaea2f.css.map": "/Home_react-trening/static/css/main.7acaea2f.css.map",
+    "main.07d3183d.js.map": "/Home_react-trening/static/js/main.07d3183d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7acaea2f.css",
+    "static/js/main.07d3183d.js"
+  ]
+}

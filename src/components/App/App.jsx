@@ -59,9 +59,12 @@ class App extends Component {
     //   }),
       
     // }));
+
     this.setState(({ todos }) => ({
       todos: todos.map(todo =>
-        todo.id === todoId ? { ...todo, completed: !todo.completed } : todo,
+        todo.id === todoId
+          ? { ...todo, completed: !todo.completed }
+          : todo,
       ),
     }));
   };

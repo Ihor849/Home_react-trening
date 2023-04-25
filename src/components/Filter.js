@@ -1,9 +1,15 @@
 import React from 'react';
 
 const Filter = ({ value, onChange }) => (
-  <label>
+  <label className="label__filter">
     Фильтр по имени
-    <input type="text" value={value} onChange={onChange} />
+    <input
+      className="input__filter"
+      style={{ marginLeft: 15 }}
+      type="text"
+      value={value}
+      onChange={onChange}
+    />
   </label>
 );
 

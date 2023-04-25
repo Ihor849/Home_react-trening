@@ -84,6 +84,10 @@ class App extends Component {
   
   calculateCompletedTodos = () => {
     const { todos } = this.state;
+    return todos.reduce(
+      (total, todo) => (todo.completed ? total + 1 : total),
+      0,
+    );
   }
 
   render() {
@@ -98,6 +102,10 @@ class App extends Component {
         {/* <Drobdown /> */}
         {/* <ColorPicker options={colorPickerOptions} /> */}
 
+        <div>
+          <p>Всего заметок: {totalTodoCount}</p>
+          <p>Выполнено: {completedTodoCount}</p>
+        </div>
         <TodoEditor onSubmit={this.addTodo} />
 
         <Filter value={filter} onChange={this.changeFilter} />

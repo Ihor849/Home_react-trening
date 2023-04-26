@@ -2,7 +2,8 @@
 import { Component } from 'react'
 // import { GlobalStyle } from './GlobalStyle'
 // import { LoginForm } from 'components/LoginForm/LoginForm'
-import {FormikForm} from 'components/FormikForm/FormikForm'
+// import { FormikForm } from 'components/FormikForm/FormikForm'
+import {ProductReviewForm} from 'components/ProductReviewForm/ProductReviewForm'
 
 class App extends Component {
   render() {
@@ -10,7 +11,8 @@ class App extends Component {
     <div>
         
         {/* <LoginForm /> */}
-        <FormikForm/>
+        {/* <FormikForm /> */}
+        <ProductReviewForm/>
         
     </div>
   );

@@ -1,17 +1,20 @@
-const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
+// import { Global } from '@emotion/react';
+import { Component } from 'react'
+// import { GlobalStyle } from './GlobalStyle'
+// import { LoginForm } from 'components/LoginForm/LoginForm'
+import {FormikForm} from 'components/FormikForm/FormikForm'
+
+class App extends Component {
+  render() {
+    return (
+    <div>
+        
+        {/* <LoginForm /> */}
+        <FormikForm/>
+        
     </div>
   );
+  }
+  
 };
 export default App

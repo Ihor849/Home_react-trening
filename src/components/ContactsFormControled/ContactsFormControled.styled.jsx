@@ -1,39 +1,31 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+`;
+
+export const Form = styled.form`
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 auto;
+
+  > label {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 15px;
-   
-`
+    gap: 4px;
 
-
-export const Title = styled.h2`
-    width: 300px;
-    text-align: center;
-    margin-bottom: 15px;
-`
-export const Mform = styled.form`
-width: 300px;
-    display: flex;
-    flex-direction:column;
-    gap:12px;
-    margin: 0 auto;
-
-    >label {
-      display: flex;
-    	flex-direction:column;
-    	gap:4px;
-
-			>input {
-				
-				font-size: 22px;
-				padding: 8;
-				border-radius: 10;
-			}
+    > input {
+      font-size: 22px;
+      padding: 8;
+      border-radius: 10;
     }
-`
+  }
+`;
 export const Button = styled.button`
   border: 1px solid ${props => props.theme.colors.black};
   padding: ${props => props.theme.spacing(3)};

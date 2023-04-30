@@ -1,4 +1,5 @@
-import {GlobalStyle} from '../../style/GlobalStyle'
+import React, { Component } from 'react';
+
 import './App.css';
 // import LoginForm from "./components/formNotControled";
 // import FormControlled from "./components/formControled";
@@ -8,22 +9,65 @@ import './App.css';
 // import CheckboxForm from "./components/Checkboks";
 // import Radio from "./components/Radio";
 // import Select from "./components/Select";
-import {FormikLib} from "components/Formik/FormaFormik";
+import { FormGroop } from 'components/ContactsFormControled/ContactsFormControled';
+import { Section } from 'components/Section/Section';
+import { ContactList } from 'components/ContactsList/ContactList';
+import { Filter } from 'components/Filter/Filter';
 
-function App() {
-  return (
-    <div className="App">
-      {/*<LoginForm onSubmit={values => console.log('values: ', values)} />*/}
-      {/*<FormControlled />*/}
-      {/*<ComplexForm onSubmit={values => console.log(values)} />*/}
-      {/*<FormGenerateId/>*/}
-      {/*<CheckboxForm />*/}
-      {/*<Radio />*/}
-      {/*<Select />*/}
-      <FormikLib title="Forms in Form" />
-     
-    </div>
-  );
+export class App extends Component {
+  state = {
+    contacts: [],
+    filter: '',
+  };
+
+  handleAddContact = contact => {
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, contact],
+    }));
+  };
+
+  contactToDelete = id => {
+    this.setState(prevState => {
+      return {
+        contacts: prevState.contacts.filter(contact => contact.id !== id),
+      };
+    });
+  };
+
+  handleChange = e => {
+    this.setState({ filter: e.target.value });
+    console.log(e.target.value);
+  };
+
+  handleFilterContacts = () => {
+    return this.state.contacts.filter(contact => {
+      return contact.name
+        .toLowerCase()
+        .includes(this.state.filter.toLowerCase().trim());
+    });
+  };
+  render() {
+    const filteredContacts = this.handleFilterContacts();
+    return (
+      <div className="App">
+        {/*<LoginForm onSubmit={values => console.log('values: ', values)} />*/}
+        {/*<FormControlled />*/}
+        {/*<ComplexForm onSubmit={values => console.log(values)} />*/}
+        {/*<FormGenerateId/>*/}
+        {/*<CheckboxForm />*/}
+        {/*<Radio />*/}
+        {/*<Select />*/}
+        <Section title="Forms in Form">
+          <FormGroop addContact={this.handleAddContact} />
+        </Section>
+        <Section title="Contacts Boock">
+          <Filter value={this.state.filter} handleChange={this.handleChange} />
+          <ContactList
+            contacts={filteredContacts}
+            contactToDelete={this.contactToDelete}
+          />
+        </Section>
+      </div>
+    );
+  }
 }
-
-export default App;

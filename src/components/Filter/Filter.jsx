@@ -1,12 +1,14 @@
 import React from 'react';
 
+import { InputFilter } from './Filter.styled';
+
 export const Filter = ({ value, handleChange }) => {
   return (
-    <input
+    <InputFilter
       name="filter"
       type="text"
       value={value}
       onChange={handleChange}
-    ></input>
+    ></InputFilter>
   );
 };

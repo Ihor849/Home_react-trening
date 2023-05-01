@@ -3,14 +3,17 @@ import shortid from 'shortid';
 
 // import Counter from 'components/Counter';
 // import Drobdown from 'components/Drobdown';
-// import ColorPicker from 'components/ColorPicker';
+import ColorPicker from 'components/ColorPicker';
 import Container from 'components/Container/Container';
 import TodoEditor from '../TodoEditor/TodoEditor';
 import TodoList from 'components/TodoList';
-import Filter from '../Filter';
+import Filter from '../TodoFilter/TodoFilter';
 import Modal from 'components/Modal/Modal';
+import Clock from 'components/Clock/Clock';
+import Tabs from 'components/Tabs/Tabs';
 
 import initialTodos from 'components/json/todos.json';
+import tabs from 'components/json/tabs.json';
 
 // const colorPickerOptions = [
 //   { label: 'red', color: '#F44336' },
@@ -26,6 +29,7 @@ class App extends Component {
     todos: [],
     filter: '',
     showModal: false,
+    showTimer: false,
   };
 
   componentDidMount() {
@@ -123,21 +127,34 @@ class App extends Component {
       showModal: !showModal,
     }));
   };
+  toggleTimer = () => {
+    // this.setState(state => ({
+    //   showModalTimer: !state.showModalTimer,
+    // }));
+    //ДЕСТРУКТОРИЗИРОВАНО//
+    this.setState(({ showTimer }) => ({
+      showTimer: !showTimer,
+    }));
+  };
 
   render() {
     // НЕЛЬЗЯ делать    <  this.setState  > без условия проверки //
     // console.log('App render');
-    const { todos, filter, showModal } = this.state;
+    const { todos, filter, showModal, showTimer } = this.state;
     const totalTodoCount = todos.length;
     const completedTodoCount = this.calculateCompletedTodos();
     const visibleTodos = this.getVisibleTodos();
     return (
       <Container>
-        <h2>Modal</h2>
+        {showTimer && <Clock />}
+        <button type="button" onClick={this.toggleTimer}>
+          ПОКАЗАТЬ/СКРЫТЬ ТАЙМЕР
+        </button>
+        {/* <Tabs items={tabs} /> */}
+        {/* <h2>Modal</h2>
         <button type="button" onClick={this.toggleModal}>
           Открыть МОДАЛКУ
         </button>
-
         {showModal && (
           <Modal onClose={this.toggleModal}>
             <h3>Это модальное окно как children</h3>
@@ -151,15 +168,12 @@ class App extends Component {
               Закрыть МОДАЛКУ
             </button>
           </Modal>
-        )}
-
+        )} */}
         {/* <h2>Состояние компонента TODO</h2> */}
-
         {/* <Counter initialValue={0} /> */}
         {/* <Drobdown /> */}
         {/* <ColorPicker options={colorPickerOptions} /> */}
-
-        {/* <div>
+        <div>
           <p>Всего заметок: {totalTodoCount}</p>
           <p>Выполнено: {completedTodoCount}</p>
         </div>
@@ -171,7 +185,7 @@ class App extends Component {
           todos={visibleTodos}
           onDeleteTodo={this.deleteTodo}
           onToggleCompleted={this.toggleCompleted}
-        /> */}
+        />
       </Container>
     );
   }

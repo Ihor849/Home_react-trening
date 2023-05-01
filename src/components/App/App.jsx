@@ -4,10 +4,11 @@ import shortid from 'shortid';
 // import Counter from 'components/Counter';
 // import Drobdown from 'components/Drobdown';
 // import ColorPicker from 'components/ColorPicker';
-import Container from 'components/Container/Container'
+import Container from 'components/Container/Container';
 import TodoEditor from '../TodoEditor/TodoEditor';
 import TodoList from 'components/TodoList';
 import Filter from '../Filter';
+import Modal from 'components/Modal/Modal';
 
 import initialTodos from 'components/json/todos.json';
 
@@ -22,9 +23,35 @@ import initialTodos from 'components/json/todos.json';
 
 class App extends Component {
   state = {
-    todos: initialTodos,
+    todos: [],
     filter: '',
+    showModal: false,
   };
+
+  componentDidMount() {
+    // console.log('App componentDidMount');
+    const todosItem = localStorage.getItem('todos');
+    const parsedTodos = JSON.parse(todosItem);
+
+    // Необходима проверка что в локал сторедж //
+    if (parsedTodos) {
+      this.setState({ todos: parsedTodos });
+    }
+    // console.log(parsedTodos);
+  }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   // НЕЛЬЗЯ делать    <  this.setState  > без условия проверки //
+  //   // console.log('App componentDidUpdate');
+  //   // console.log(prevState);
+  //   // console.log(this.state);
+  //   // Проверка предыдущего и тикущего состояния //
+  //   if (this.state.todos !== prevState.todos) {
+  //     // console.log('Обновилось поле todos');
+  //     localStorage.setItem('todos', JSON.stringify(this.state.todos));
+  //   }
+  // }
+
   addTodo = text => {
     const todo = {
       id: shortid.generate(),
@@ -34,17 +61,16 @@ class App extends Component {
     this.setState(({ todos }) => ({
       todos: [todo, ...todos],
     }));
-  }
-  
+  };
 
   deleteTodo = todoId => {
     this.setState(prevState => ({
       todos: prevState.todos.filter(todo => todo.id !== todoId),
     }));
   };
-  
+
   toggleCompleted = todoId => {
-    console.log(todoId);
+    // console.log(todoId);
 
     // this.setState(prevState => ({
     //   todos: prevState.todos.map(todo => {
@@ -57,14 +83,12 @@ class App extends Component {
     //     }
     //     return todo;
     //   }),
-      
+
     // }));
 
     this.setState(({ todos }) => ({
       todos: todos.map(todo =>
-        todo.id === todoId
-          ? { ...todo, completed: !todo.completed }
-          : todo,
+        todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
       ),
     }));
   };
@@ -78,31 +102,64 @@ class App extends Component {
     const normalizedFilter = filter.toLowerCase();
 
     return todos.filter(todo =>
-      todo.text.toLowerCase().includes(normalizedFilter),
+      todo.text.toLowerCase().includes(normalizedFilter)
     );
   };
-  
+
   calculateCompletedTodos = () => {
     const { todos } = this.state;
     return todos.reduce(
       (total, todo) => (todo.completed ? total + 1 : total),
-      0,
+      0
     );
-  }
+  };
+
+  toggleModal = () => {
+    // this.setState(state => ({
+    //   showModal: !state.showModal,
+    // }));
+    //ДЕСТРУКТОРИЗИРОВАНО//
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
 
   render() {
-    const { todos, filter } = this.state;
+    // НЕЛЬЗЯ делать    <  this.setState  > без условия проверки //
+    // console.log('App render');
+    const { todos, filter, showModal } = this.state;
     const totalTodoCount = todos.length;
     const completedTodoCount = this.calculateCompletedTodos();
     const visibleTodos = this.getVisibleTodos();
     return (
       <Container>
-        <h1>Состояние компонента TODO</h1>
+        <h2>Modal</h2>
+        <button type="button" onClick={this.toggleModal}>
+          Открыть МОДАЛКУ
+        </button>
+
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
+            <h3>Это модальное окно как children</h3>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. A nemo
+              illo distinctio amet? In illum sequi quis mollitia ipsum. Soluta
+              cupiditate est id veniam culpa eius expedita perferendis neque
+              eveniet?
+            </p>
+            <button type="button" onClick={this.toggleModal}>
+              Закрыть МОДАЛКУ
+            </button>
+          </Modal>
+        )}
+
+        {/* <h2>Состояние компонента TODO</h2> */}
+
         {/* <Counter initialValue={0} /> */}
         {/* <Drobdown /> */}
         {/* <ColorPicker options={colorPickerOptions} /> */}
 
-        <div>
+        {/* <div>
           <p>Всего заметок: {totalTodoCount}</p>
           <p>Выполнено: {completedTodoCount}</p>
         </div>
@@ -114,9 +171,8 @@ class App extends Component {
           todos={visibleTodos}
           onDeleteTodo={this.deleteTodo}
           onToggleCompleted={this.toggleCompleted}
-        />
+        /> */}
       </Container>
-
     );
   }
 }

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from 'components/GlobalStyle';
 import { Example1 } from 'components/Example1';
+import { ReaderMy } from 'components/Rider1/Rider1';
 // import { Reader } from 'components/Reader/Raeder';
 import './index.css';
 import publications from 'components/JSON/publications.json';
@@ -13,8 +14,8 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      {/* <Reader items={publications} /> */}
-      <Example1 />
+      <ReaderMy items={publications} />
+      {/* <Example1 /> */}
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -11,6 +11,8 @@ import Filter from '../TodoFilter/TodoFilter';
 import Modal from 'components/Modal/Modal';
 import Clock from 'components/Clock/Clock';
 import Tabs from 'components/Tabs/Tabs';
+import IconButton from 'components/IconButton/IconButton';
+import { ReactComponent as AddIcon } from '../../icons/add.svg';
 
 import initialTodos from 'components/json/todos.json';
 import tabs from 'components/json/tabs.json';
@@ -30,6 +32,7 @@ class App extends Component {
     filter: '',
     showModal: false,
     showTimer: false,
+    showModalForm: false,
   };
 
   componentDidMount() {
@@ -65,6 +68,7 @@ class App extends Component {
     this.setState(({ todos }) => ({
       todos: [todo, ...todos],
     }));
+    this.toggleModalForm();
   };
 
   deleteTodo = todoId => {
@@ -136,11 +140,20 @@ class App extends Component {
       showTimer: !showTimer,
     }));
   };
+  toggleModalForm = () => {
+    // this.setState(state => ({
+    //   showModalForm: !state.showModalForm,
+    // }));
+    //ДЕСТРУКТОРИЗИРОВАНО//
+    this.setState(({ showModalForm }) => ({
+      showModalForm: !showModalForm,
+    }));
+  };
 
   render() {
     // НЕЛЬЗЯ делать    <  this.setState  > без условия проверки //
     // console.log('App render');
-    const { todos, filter, showModal, showTimer } = this.state;
+    const { todos, filter, showModal, showTimer, showModalForm } = this.state;
     const totalTodoCount = todos.length;
     const completedTodoCount = this.calculateCompletedTodos();
     const visibleTodos = this.getVisibleTodos();
@@ -150,12 +163,21 @@ class App extends Component {
         <button type="button" onClick={this.toggleTimer}>
           ПОКАЗАТЬ/СКРЫТЬ ТАЙМЕР
         </button>
-        {/* <Tabs items={tabs} /> */}
-        {/* <h2>Modal</h2>
-        <button type="button" onClick={this.toggleModal}>
+        <IconButton onClick={this.toggleModalForm} aria-label="Добавить  todo">
+          <AddIcon width="40" height="40" fill="#fff" />
+        </IconButton>
+
+        {showModalForm && (
+          <Modal onClose={this.toggleModalForm}>
+            <TodoEditor onSubmit={this.addTodo} />
+          </Modal>
+        )}
+        {/* <Tabs items={tabs} />  */}
+        {/* <h2>Modal</h2> */}
+        {/* <button type="button" onClick={this.toggleModal}>
           Открыть МОДАЛКУ
-        </button>
-        {showModal && (
+        </button> */}
+        {/* {showModal && (
           <Modal onClose={this.toggleModal}>
             <h3>Это модальное окно как children</h3>
             <p>
@@ -177,7 +199,7 @@ class App extends Component {
           <p>Всего заметок: {totalTodoCount}</p>
           <p>Выполнено: {completedTodoCount}</p>
         </div>
-        <TodoEditor onSubmit={this.addTodo} />
+        {/* <TodoEditor onSubmit={this.addTodo} /> */}
 
         <Filter value={filter} onChange={this.changeFilter} />
 
